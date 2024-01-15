@@ -8,3 +8,6 @@ https://github.com/AmruthPillai/React-Calendar/tree/main/src
 
 ## 写経元youtube
 https://www.youtube.com/watch?v=wyVFo2X5IM8&t=1938s
+
+## 自分のgithubのURL
+https://github.com/okuyama-code/react-ts-calendar
