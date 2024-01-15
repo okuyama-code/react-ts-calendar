@@ -4,6 +4,7 @@ import Calendar from './calendar/Calendar'
 
 const App = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
+  // const [currentDate, setCurrentDate] = useState(new Date("2023-02-01"));
 
   return (
     <>
