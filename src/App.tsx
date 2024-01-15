@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import './App.css'
 import Calendar from './calendar/Calendar'
 
 const App = () => {
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   return (
     <>
@@ -12,7 +14,7 @@ const App = () => {
           </p>
         </div>
 
-        <Calendar />
+        <Calendar value={currentDate} onChange={setCurrentDate} />
       </div>
     </>
   )
