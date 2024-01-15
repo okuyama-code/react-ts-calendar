@@ -7,9 +7,26 @@ interface Props extends React.PropsWithChildren {
   onClick?: () => void;
 }
 
-const Cell: React.FC<Props> = ({ className ,children }) => {
+const Cell: React.FC<Props> = ({
+  onClick,
+  className,
+  children,
+  // isActive,
+}) => {
   return (
-    <div className={clsx("h-12 flex items-center justify-center border-b border-r", className)}>{children}</div>
+    <div
+      onClick={onClick}
+      className={clsx(
+        // 最初の引数：基本的なクラス名やスタイル
+        "h-12 flex items-center justify-center border-b border-r",
+         // 2番目の引数：onClick プロパティが存在する場合、ホバー時やアクティブ時のスタイルを追加
+        { "cursor-pointer hover:bg-gray-100 active:bg-gray-200": !!onClick},
+        // 3番目の引数：親コンポーネントから渡された追加のクラス名（既存のクラス名と組み合わせる）
+        className
+      )}
+    >
+        {children}
+      </div>
   )
 }
 

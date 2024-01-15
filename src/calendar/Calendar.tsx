@@ -1,15 +1,16 @@
 import React from 'react'
 import Cell from './Cell'
-import { differenceInDays, endOfMonth, startOfMonth } from 'date-fns';
+import { add, differenceInDays, endOfMonth, format, startOfMonth, sub } from 'date-fns';
 
 const weeks = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 type Props = {
   value?: Date;
-  onChange: (data: Date) => void
+  setCurrentDate: (data: Date) => void
 }
 
-const Calendar: React.FC<Props> = ({ value = new Date(), onChange }) => {
+const Calendar: React.FC<Props> = ({ value = new Date(), setCurrentDate }) => {
+  // console.log(onChange);
   const startDate = startOfMonth(value) // Mon Jan 01 2024
   const endDate = endOfMonth(value) // Wed Jan 31 2024
   // これをmapで展開してカレンダーの数字を出す。要素数で配列を作る書き方をすればいい
@@ -22,16 +23,25 @@ const Calendar: React.FC<Props> = ({ value = new Date(), onChange }) => {
   const suffixDays = 6 - endDate.getDay();
 
   // console.log(endDate.getDay()); // 3
-  console.log(suffixDays) // 3
+  // console.log(suffixDays) // 3
+
+  // sub 指定された日付から、指定された年、月を減算
+  // add 指定した年、月を指定した日付に加算
+  // onhangeはApp.tsxのsetCurrentDate(useState)
+  // sub(現在のDate, { 引く年、月の設定 })
+  const prevMonth = () => setCurrentDate(sub(value, { months: 1 }));
+  const nextMonth = () => setCurrentDate(add(value, { months: 1 }));
+  const prevYear = () => setCurrentDate(sub(value, { years: 1 }))
+  const nextYear = () => setCurrentDate(add(value, { years: 1 }))
 
   return (
     <div className="w-[400px] border-t border-l">
       <div className="grid grid-cols-7 items-center justify-center text-center">
-        <Cell>{"<<"}</Cell>
-        <Cell>{"<"}</Cell>
-        <Cell className='col-span-3'>JUN 2024</Cell>
-        <Cell>{">"}</Cell>
-        <Cell>{">>"}</Cell>
+        <Cell onClick={prevYear}>{"<<"}</Cell>
+        <Cell onClick={prevMonth}>{"<"}</Cell>
+        <Cell className='col-span-3'>{format(value, "LL yyyy")}</Cell>
+        <Cell onClick={nextMonth}>{">"}</Cell>
+        <Cell onClick={nextYear}>{">>"}</Cell>
 
         {weeks.map((week) => (
           <Cell key={week} className="text-xs font-bold uppercase">{week}</Cell>

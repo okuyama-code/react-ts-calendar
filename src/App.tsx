@@ -6,6 +6,8 @@ const App = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   // const [currentDate, setCurrentDate] = useState(new Date("2023-02-01"));
 
+  // console.log(setCurrentDate)
+
   return (
     <>
       <div className="mt-16 flex flex-col items-center gap-8">
@@ -15,7 +17,7 @@ const App = () => {
           </p>
         </div>
 
-        <Calendar value={currentDate} onChange={setCurrentDate} />
+        <Calendar value={currentDate} setCurrentDate={setCurrentDate} />
       </div>
     </>
   )
