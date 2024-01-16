@@ -11,23 +11,24 @@ const Cell: React.FC<Props> = ({
   onClick,
   className,
   children,
-  // isActive,
+  isActive = false,
 }) => {
   return (
     <div
-      onClick={onClick}
+      onClick={!isActive ? onClick : undefined}
       className={clsx(
-        // 最初の引数：基本的なクラス名やスタイル
-        "h-12 flex items-center justify-center border-b border-r",
-         // 2番目の引数：onClick プロパティが存在する場合、ホバー時やアクティブ時のスタイルを追加
-        { "cursor-pointer hover:bg-gray-100 active:bg-gray-200": !!onClick},
-        // 3番目の引数：親コンポーネントから渡された追加のクラス名（既存のクラス名と組み合わせる）
+        "h-10 border-b border-r flex items-center justify-center select-none transition-colors",
+        {
+          "cursor-pointer hover:bg-gray-100 active:bg-gray-200":
+            !isActive && onClick,
+          "font-bold text-white bg-red-300": isActive,
+        },
         className
       )}
     >
-        {children}
-      </div>
-  )
+      {children}
+    </div>
+  );
 }
 
 export default Cell

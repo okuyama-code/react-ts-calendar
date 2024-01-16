@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import './App.css'
 import Calendar from './calendar/Calendar'
+import { format } from 'date-fns';
+import Button from './components/Button';
 
 const App = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  // const [currentDate, setCurrentDate] = useState(new Date("2023-02-01"));
 
-  // console.log(setCurrentDate)
+  const handleSetToday = () => setCurrentDate(new Date());
 
   return (
     <>
@@ -14,7 +15,10 @@ const App = () => {
         <div className="flex flex-col items-center gap-4">
           <p>
             <strong>Selected Date: </strong>
+            {format(currentDate, "dd LLLL yyyy")}
           </p>
+
+          <Button onClick={handleSetToday}>Today</Button>
         </div>
 
         <Calendar value={currentDate} setCurrentDate={setCurrentDate} />

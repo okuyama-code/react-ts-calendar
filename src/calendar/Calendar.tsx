@@ -1,6 +1,6 @@
 import React from 'react'
 import Cell from './Cell'
-import { add, differenceInDays, endOfMonth, format, startOfMonth, sub } from 'date-fns';
+import { add, differenceInDays, endOfMonth, format, setDate, startOfMonth, sub } from 'date-fns';
 
 const weeks = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -34,6 +34,12 @@ const Calendar: React.FC<Props> = ({ value = new Date(), setCurrentDate }) => {
   const prevYear = () => setCurrentDate(sub(value, { years: 1 }))
   const nextYear = () => setCurrentDate(add(value, { years: 1 }))
 
+  const handleClickDate = (index: number) => {
+    // 現在の日にちにindexの番号の日にちに更新する
+    const date = setDate(value, index);
+    setCurrentDate(date);
+  }
+
   return (
     <div className="w-[400px] border-t border-l">
       <div className="grid grid-cols-7 items-center justify-center text-center">
@@ -56,12 +62,13 @@ const Calendar: React.FC<Props> = ({ value = new Date(), setCurrentDate }) => {
 
         {Array.from({ length: numDays}).map((_, index) => {
           const date = index + 1;
+          const isCurrentDate = date === value.getDate();
 
           return (
             <Cell
               key={date}
-              // isActive={isCurrentDate}
-              // onClick={() => handleClickDate(date)}
+              isActive={isCurrentDate}
+              onClick={() => handleClickDate(date)}
             >
               {date}
             </Cell>
